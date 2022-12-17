@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
+
 export const UserContext = React.createContext()
 
 const userAxios = axios.create()
@@ -12,10 +13,11 @@ userAxios.interceptors.request.use(config => {
 })
 
 export default function UserProvider(props){
+  
   const initState = { 
     user: JSON.parse(localStorage.getItem("user")) || {}, 
     token: localStorage.getItem("token") || "", 
-    todos: [],
+    travel: [],
     errMsg: ""
   }
 
@@ -42,7 +44,8 @@ export default function UserProvider(props){
         const { user, token } = res.data
         localStorage.setItem("token", token)
         localStorage.setItem("user", JSON.stringify(user))
-        getUserTodos()
+        getUserTravel()
+       // getAllTravel()
         setUserState(prevUserState => ({
           ...prevUserState,
           user,
@@ -58,7 +61,7 @@ export default function UserProvider(props){
     setUserState({
       user: {},
       token: "",
-      todos: []
+      travel: []
     })
   }
 
@@ -76,27 +79,45 @@ export default function UserProvider(props){
     }))
   }
 
-  function getUserTodos(){
-    userAxios.get("/api/todo/user")
+
+  function getUserTravel(){
+    userAxios.get("/api/travel/user")
       .then(res => {
         setUserState(prevState => ({
           ...prevState,
-          todos: res.data
+          travel: res.data
         }))
       })
       .catch(err => console.log(err.response.data.errMsg))
   }
 
-  function addTodo(newTodo){
-    userAxios.post("/api/todo", newTodo)
+  function addTravel(newTravel){
+    userAxios.post("/api/travel", newTravel)
       .then(res => {
         setUserState(prevState => ({
           ...prevState,
-          todos: [...prevState.todos, res.data]
+          travel: [...prevState.travel, res.data]
         }))
       })
       .catch(err => console.log(err.response.data.errMsg))
   }
+
+  function deleteTravel(travelId){
+    userAxios.delete(`/api/travel/${travelId}`)
+    .then(res => setUserState(prevState => ({
+      ...prevState, 
+      travel: prevState.travel.filter(travel => travel._id !== travelId)
+    })))
+    .catch(err => console.log(err))
+  }
+
+  function editTravel(updatedTravel, travelId){
+    userAxios.put(`/api/travel/${travelId}`, updatedTravel)
+    .then(res => setUserState(prevState => ({
+      ...prevState,
+      travel: prevState.travel.map(travel => travel._id !== travelId ? travel : res.data)
+    })))
+  } 
 
   return (
     <UserContext.Provider
@@ -105,8 +126,11 @@ export default function UserProvider(props){
         signup,
         login,
         logout,
-        addTodo,
-        resetAuthErr
+        addTravel,
+        resetAuthErr, 
+        getUserTravel, 
+        deleteTravel, 
+        editTravel,  
       }}>
       { props.children }
     </UserContext.Provider>

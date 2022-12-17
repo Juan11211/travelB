@@ -34,21 +34,20 @@ export default function Auth(){
   }
 
   return (
-    <div className="auth-container">
-      <h1>Todo App</h1>
+    <div name='auth' className="w-full h-full bg-[whitesmoke]">
+      <h1 className='text-5xl flex justify-center items-center '>TravelGram</h1>
       { !toggle ?
-        <>
-          <AuthForm 
+        <div className='text-md'>
+          <AuthForm className=''
             handleChange={handleChange}
             handleSubmit={handleSignup}
             inputs={inputs}
             btnText="Sign up"
-            errMsg={errMsg}
-          />
-          <p onClick={toggleForm}>Already a member?</p>
-        </>
+            errMsg={errMsg} />
+          <p className='bg-[white] border-[white] text-center w-80 py-4 ' onClick={toggleForm}>Already a member?</p>
+        </div>
       :
-        <>
+      <div className='text-md'>
           <AuthForm 
             handleChange={handleChange}
             handleSubmit={handleLogin}
@@ -56,8 +55,8 @@ export default function Auth(){
             btnText="Login"
             errMsg={errMsg}
           />
-          <p onClick={toggleForm}>Not a member?</p>
-        </>
+          <p className='bg-[white] border-[white] text-center w-80 py-4' onClick={toggleForm}>Not a member?</p>
+        </div>
       }
     </div>
   )

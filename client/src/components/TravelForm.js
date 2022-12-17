@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 
 const initInputs = {
-  title: "",
-  description: "",
+  location: "",
+  review: "",
   imgUrl: ""
 }
 
-export default function TodoForm(props){
+export default function TravelForm(props){
   const [inputs, setInputs] = useState(initInputs)
-  const { addTodo } = props
+  const { addTravel } = props
 
   function handleChange(e){
     const {name, value} = e.target
@@ -20,32 +20,35 @@ export default function TodoForm(props){
 
   function handleSubmit(e){
     e.preventDefault()
-    addTodo(inputs)
+    addTravel(inputs)
     setInputs(initInputs)
   }
 
-  const { title, description, imgUrl } = inputs
+  const { location, review, imgUrl } = inputs
   return (
     <form onSubmit={handleSubmit}>
       <input 
+        className='border-2'
         type="text" 
-        name="title" 
-        value={title} 
+        name="location" 
+        value={location} 
         onChange={handleChange} 
-        placeholder="Title"/>
-      <input 
+        placeholder="Location"/>
+      <textarea 
+        className='border-2 h-[40px] my-'
         type="text" 
-        name="description" 
-        value={description} 
+        name="review" 
+        value={review} 
         onChange={handleChange} 
-        placeholder="Description"/>
+        placeholder="Review"/>
       <input 
+        className='border-2'
         type="text" 
         name="imgUrl" 
         value={imgUrl} 
         onChange={handleChange} 
         placeholder="Image Url"/>
-      <button>Add Todo</button>
+      <button className='border-2 mx-2 w-[250px] hover:bg-[lightblue]'>Add Your Experience</button>
     </form>
   )
 }

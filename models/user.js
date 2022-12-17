@@ -20,6 +20,18 @@ const userSchema = new Schema({
   isAdmin: {
     type: Boolean,
     default: false
+  },
+  travel: {
+  type: Array, 
+  default: []
+  },
+  followers: { 
+    type: mongoose.Schema.ObjectId,
+    ref: "User"
+  },
+  following: { 
+    type: mongoose.Schema.ObjectId,
+    ref: "User"
   }
 })
 

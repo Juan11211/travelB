@@ -6,6 +6,9 @@ import Profile from './components/Profile.js'
 import Public from './components/Public.js'
 import ProtectedRoute from './components/ProtectedRoute.js'
 import { UserContext } from './context/UserProvider.js'
+import "./index.css"
+import Sneakers from './components/Sneakers'
+
 
 export default function App(){
   const { token, logout, user } = useContext(UserContext)
@@ -14,9 +17,9 @@ export default function App(){
       { token && <Navbar logout={ logout }/> }
       <Routes>
         <Route 
-          path="/" 
-          element={token ? <Navigate to="/profile"/> : <Auth />}
-        />
+            path="/"
+            element={token ? <Navigate to="/profile"/> : <Auth/>}
+          />
         <Route 
           path="/profile" 
           element={
@@ -30,6 +33,14 @@ export default function App(){
           element={
             <ProtectedRoute token={token} redirectTo="/">
               <Public/>
+            </ProtectedRoute>
+          }
+        />
+        <Route 
+          path="/sneakers" 
+          element={
+            <ProtectedRoute token={token} redirectTo="/">
+              <Sneakers />
             </ProtectedRoute>
           }
         />
