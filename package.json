@@ -19,5 +19,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.3",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "react-scripts": "^5.0.1"
   }
 }
