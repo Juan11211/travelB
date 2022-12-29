@@ -7,8 +7,6 @@ import Public from './components/Public.js'
 import ProtectedRoute from './components/ProtectedRoute.js'
 import { UserContext } from './context/UserProvider.js'
 import "./index.css"
-import Sneakers from './components/Sneakers'
-
 
 export default function App(){
   const { token, logout, user } = useContext(UserContext)
@@ -36,14 +34,7 @@ export default function App(){
             </ProtectedRoute>
           }
         />
-        <Route 
-          path="/sneakers" 
-          element={
-            <ProtectedRoute token={token} redirectTo="/">
-              <Sneakers />
-            </ProtectedRoute>
-          }
-        />
+        
       </Routes>
     </div>
   )
