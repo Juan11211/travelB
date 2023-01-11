@@ -12,7 +12,6 @@ export default function Navbar(props){
     <div className='flex justify-end px-3 text--500 font-semibold text-3xl'>
       <Link  className='mx-1' to="/profile"><CgProfile>Profile</CgProfile></Link>
       <Link className='mx-1' to="/public"><AiFillHome>Public</AiFillHome></Link>
-      <Link className='mx-1' to="/sneakers">All Post</Link>
       <button className='mx-1' onClick={logout}><FiLogOut>Logout</FiLogOut></button>
     </div>
     </div>
